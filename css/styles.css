@@ -5,7 +5,7 @@ body {
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
   background: repeating-linear-gradient(
-    -45deg, white, white 15px, #ddd, #ddd 16px);
+    -45deg, white, white 4px, #ddd, #ddd 5px);
   width: 100%;
   height: 100vh;
   display: flex;
@@ -13,25 +13,6 @@ body {
   justify-content: center;
   align-items: center;
   margin: 0;
-}
-
-.buttons {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-.btn-col {
-  display: flex;
-  flex-direction: column;
-}
-
-#zero-btn {
-  width: 130px;
-}
-
-#equals-btn {
-  height: 96px;
 }
 
 button,
@@ -45,8 +26,11 @@ button:visited {
 button {
   border: none;
   border-radius: 5px;
-  background-color: lightcoral;
-  box-shadow: 0px 3px 0px 0px #222121;
+  background-color: #005867;
+  box-shadow: 0px 3px 0px 0px #003c46;
+  color: #c7e2d1;
+  font-size: 1rem;
+  font-weight: 600;
   width: 55px;
   height: 40px;
   padding: 0.5rem;
@@ -59,29 +43,85 @@ button:active {
   box-shadow: none;
 }
 
+header {
+  color: black;
+  font-size: 12px;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+header > span {
+  background-color: gold;
+}
+
+header > a, a:hover,
+a:visited, a:link, a:active {
+  color: black;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.btn-col {
+  display: flex;
+  flex-direction: column;
+}
+
 .calculator {
-  background-color: lightblue;
+  background-color: #2faba1;
+  /*border: 4px solid #005867;*/
+  box-shadow: 9px 8px 0px 0 rgba(0, 0, 0, 0.3);
   border-radius: 1rem;
   width: 300px;
   height: 400px;
   padding: 1.5rem;
 }
 
-footer {
-  font-size: 10px;
-  text-transform: uppercase;
-  text-align: center;
-  margin-top: 0.5rem;
-}
-
 .screen {
-  background-color: lightyellow;
-  border: 2px solid;
+  background-color: #c7e2d1;
   border-radius: 0.5rem;
+  color: #005867;
   padding: 0.5rem;
   text-align: right;
   margin-bottom: 1.5rem;
   margin-top: 0.5rem;
+}
+
+.dark {
+  background-color: #003c46;
+  box-shadow: 0px 3px 0px 0px black;
+}
+
+.red {
+  background-color: #dc2b35;
+  box-shadow: 0px 3px 0px 0px #84191f;
+}
+
+.yellow {
+  background-color: #e3ba36;
+  box-shadow: 0px 3px 0px 0px #876f20;
+}
+
+.green {
+  background-color: #59cf53;
+  box-shadow: 0px 3px 0px 0px #2d682a;
+}
+
+.blue {
+  background-color: #56b9d8;
+  box-shadow: 0px 3px 0px 0px #2b5f70;
+}
+
+#zero-btn {
+  width: 130px;
+}
+
+#equals-btn {
+  height: 96px;
 }
 
 #current-value {

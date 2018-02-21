@@ -4,6 +4,7 @@ $(document).ready(function() {
   var currVal = '';
   var equation = [];
   var resultFound = false;
+  var isLastEntryOperator = false;
 
   /* Rounds the value to the nearest tenths place */
   function round(val) {
@@ -19,6 +20,8 @@ $(document).ready(function() {
     entry = '';
     currVal = '';
     equation = [];
+    resultFound = false;
+    isLastEntryOperator = false;
     $('#current-value').html(0);
     $('#equation').html(0);
   }
@@ -32,8 +35,11 @@ $(document).ready(function() {
       // make sure to display 0 if all entries are cleared
       if(equation.length === 0) {
         $('#equation').html(0);
+        isLastEntryOperator = false;
       // if not display all entries
       } else {
+        console.log('dsfjlk');
+        isLastEntryOperator = true;
         $('#equation').html(equation.join(''));
       }
     } else {
@@ -43,7 +49,10 @@ $(document).ready(function() {
         equation = [];
         $('#current-value').html(0);
         $('#equation').html(0);
+        isLastEntryOperator = false;
       } else {
+        console.log('POP');
+        isLastEntryOperator = false;
         equation.pop();
         currVal = '';
         $('#current-value').html(0);
@@ -59,7 +68,6 @@ $(document).ready(function() {
 
   $('button').click(function() {
     entry = $(this).val();
-
     // If a result was previously found, and the next entry is a digit
     // reset currVal and start a new equation
     if(resultFound && /\d/g.test(entry)) {
@@ -89,22 +97,25 @@ $(document).ready(function() {
       }
     // DIGITS
     } else if(/\d/g.test(entry)) {
+      isLastEntryOperator = false;
       currVal += entry;
       $('#current-value').html(currVal);
       $('#equation').html(equation.join('') + currVal);
     // OPERATORS
     } else {
-      if(currVal !== '0.') {
+      var operators = ["+", "-", "*", "/"];
+      if(currVal !== '0.' && !isLastEntryOperator) {
         switch(entry) {
           case '+':
+          isLastEntryOperator = true;
           equation.push(currVal);
           equation.push('+');
-          console.log("add " + equation);
           currVal = '';
           $('#current-value').html('+');
           $('#equation').html(equation.join(''));
           break;
           case '-':
+          isLastEntryOperator = true;
           equation.push(currVal);
           equation.push('-');
           currVal = '';
@@ -112,6 +123,7 @@ $(document).ready(function() {
           $('#equation').html(equation.join(''));
           break;
           case '*':
+          isLastEntryOperator = true;
           equation.push(currVal);
           equation.push('*');
           currVal = '';
@@ -119,6 +131,7 @@ $(document).ready(function() {
           $('#equation').html(equation.join(''));
           break;
           case '/':
+          isLastEntryOperator = true;
           equation.push(currVal);
           equation.push('/');
           currVal = '';
@@ -126,6 +139,7 @@ $(document).ready(function() {
           $('#equation').html(equation.join(''));
           break;
           case '=':
+          isLastEntryOperator = false;
           equation.push(currVal);
           currVal = getTotal();
           $('#current-value').html(currVal);
@@ -135,6 +149,17 @@ $(document).ready(function() {
           break;
         }
       }
+    }
+
+    var check = currVal + equation.join('');
+    if(currVal.split('').length > 13) {
+      clearAll();
+      $('#current-value').html('Digit Limit Met');
+      $('#equation').html(0);
+    } else if(check.split('').length > 35) {
+      clearAll();
+      $('#current-value').html(0);
+      $('#equation').html('Digit Limit Met');
     }
   });
 });
