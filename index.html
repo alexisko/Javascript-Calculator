@@ -8,40 +8,47 @@
 </head>
 <body>
   <div class="container">
-    <div class="screen">
-      <div id="current-value">0</div>
-      <div id="equation">0</div>
-    </div>
+    <div class="calculator">
+      <div class="screen">
+        <div id="current-value">0</div>
+        <div id="equation">0</div>
+      </div>
 
-    <div class="buttons">
-      <div class="btn-row">
-        <button value="AC">AC</button>
-        <button value="CE">CE</button>
-        <button value="/">&divide;</button>
-        <button value="*">&times;</button>
+      <div class="buttons">
+        <div class="btn-row">
+          <div class="row">
+            <button value="AC">AC</button>
+            <button value="CE">CE</button>
+            <button value="/">&divide;</button>
+          </div>
+          <div class="row">
+            <button value="7">7</button>
+            <button value="8">8</button>
+            <button value="9">9</button>
+          </div>
+          <div class="row">
+            <button value="4">4</button>
+            <button value="5">5</button>
+            <button value="6">6</button>
+          </div>
+          <div class="row">
+            <button value="1">1</button>
+            <button value="2">2</button>
+            <button value="3">3</button>
+          </div>
+          <div class="row">
+            <button id="zero-btn" value="0">0</button>
+            <button value=".">.</button>
+          </div>
+        </div>
+        <div class="btn-col">
+          <button value="*">&times;</button>
+          <button value="-">&minus;</button>
+          <button value="+">&plus;</button>
+          <button id="equals-btn" value="=">&equals;</button>
+        </div>
       </div>
-      <div class="btn-row">
-        <button value="7">7</button>
-        <button value="8">8</button>
-        <button value="9">9</button>
-        <button value="-">&minus;</button>
-      </div>
-      <div class="btn-row">
-        <button value="4">4</button>
-        <button value="5">5</button>
-        <button value="6">6</button>
-        <button value="+">&plus;</button>
-      </div>
-      <div class="btn-row">
-        <button value="1">1</button>
-        <button value="2">2</button>
-        <button value="3">3</button>
-        <button value="=">&equals;</button>
-      </div>
-      <div class="btn-row">
-        <button value="0">0</button>
-        <button value=".">.</button>
-      </div>
+      <footer>by alexis</footer>
     </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
