@@ -5,12 +5,17 @@ $(document).ready(function() {
   var equation = [];
   var resultFound = false;
 
-  /* Rounds the value to the nearest hundreths place */
+  /* Rounds the value to the nearest tenths place */
   function round(val) {
-
+    val = val.toString();
+    if(val.includes('.')) {
+      return val.substring(0, val.indexOf('.')+2);
+    }
+    return val;
   }
 
   function clearAll() {
+    // resets all variables
     entry = '';
     currVal = '';
     equation = [];
@@ -19,16 +24,21 @@ $(document).ready(function() {
   }
 
   function clearEntry() {
+    // currVal is a number, reset to empty string
     if(currVal !== '') {
       entry = '';
       currVal = '';
       $('#current-value').html(0);
+      // make sure to display 0 if all entries are cleared
       if(equation.length === 0) {
         $('#equation').html(0);
+      // if not display all entries
       } else {
         $('#equation').html(equation.join(''));
       }
     } else {
+      // Ensures that the equation div always displays 0
+      // after all entries have been cleared
       if(equation.length <= 1) {
         equation = [];
         $('#current-value').html(0);
@@ -42,13 +52,16 @@ $(document).ready(function() {
     }
   }
 
+  /* Converts equation array to a string and uses eval to evaluate the equation */
   function getTotal() {
-    return eval(equation.join('')).toString();
+    return round(eval(equation.join('')));
   }
 
   $('button').click(function() {
     entry = $(this).val();
 
+    // If a result was previously found, and the next entry is a digit
+    // reset currVal and start a new equation
     if(resultFound && /\d/g.test(entry)) {
       currVal = '';
     }
@@ -61,6 +74,7 @@ $(document).ready(function() {
     } else if(entry === 'CE') {
       clearEntry();
     // DECIMAL
+    // Only allows one '.'
     } else if(entry === '.') {
       // If the current value is empty
       if(currVal === '') {
