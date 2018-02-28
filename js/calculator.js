@@ -8,11 +8,14 @@ $(document).ready(function() {
 
   /* Rounds the value to the nearest tenths place */
   function round(val) {
-    val = val.toString();
-    if(val.includes('.')) {
-      return val.substring(0, val.indexOf('.')+2);
+    if(val) {
+      val = val.toString();
+      if(val.includes('.')) {
+        return val.substring(0, val.indexOf('.')+2);
+      }
+      return val;
     }
-    return val;
+    return '0';
   }
 
   function clearAll() {
@@ -73,6 +76,13 @@ $(document).ready(function() {
     if(resultFound && /\d/g.test(entry)) {
       currVal = '';
     }
+
+    // Doesn't allow user to enter a operator as a first entry
+    var operators = ["+", "-", "*", "/"];
+    if(equation.length === 0 && currVal === '' && operators.indexOf(entry) > -1) {
+      entry = '';
+    }
+
     resultFound = false;
 
     // CLEAR ALL
@@ -103,7 +113,6 @@ $(document).ready(function() {
       $('#equation').html(equation.join('') + currVal);
     // OPERATORS
     } else {
-      var operators = ["+", "-", "*", "/"];
       if(currVal !== '0.' && !isLastEntryOperator) {
         switch(entry) {
           case '+':
@@ -143,7 +152,11 @@ $(document).ready(function() {
           equation.push(currVal);
           currVal = getTotal();
           $('#current-value').html(currVal);
-          $('#equation').html(equation.join('') + "=" + currVal);
+          if(equation[0] === '') {
+            $('#equation').html(currVal + "=" + currVal);
+          } else {
+            $('#equation').html(equation.join('') + "=" + currVal);
+          }
           equation = [];
           resultFound = true;
           break;
@@ -151,15 +164,19 @@ $(document).ready(function() {
       }
     }
 
+    // DIGIT LIMIT CHECKER
     var check = currVal + equation.join('');
-    if(currVal.split('').length > 13) {
-      clearAll();
-      $('#current-value').html('Digit Limit Met');
-      $('#equation').html(0);
-    } else if(check.split('').length > 35) {
-      clearAll();
-      $('#current-value').html(0);
-      $('#equation').html('Digit Limit Met');
+    if(check.length > 0) {
+      if(currVal.split('').length > 13) {
+        clearAll();
+        $('#current-value').html('Digit Limit Met');
+        $('#equation').html(0);
+      } else if(check.split('').length > 35) {
+        clearAll();
+        $('#current-value').html(0);
+        $('#equation').html('Digit Limit Met');
+      }
     }
+
   });
 });
